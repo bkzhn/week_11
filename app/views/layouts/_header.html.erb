@@ -1,0 +1,40 @@
+<div class="header">
+  <h1 class="pull-left">
+    <%= link_to "Library App", root_path %>
+  </h1>
+  
+  <% if current_user %>
+    <div class="login-form">
+      <%= link_to "Logout", logout_path %>
+    </div>
+  <% else %>
+    <div class="form login-form">
+      <%= form_tag sessions_path do %>
+        <%= text_field_tag     :username, nil, placeholder: "username" %>
+        <%= password_field_tag :password, nil, placeholder: "password" %>
+      
+        <input type="submit" class="submit btn btn-primary" value="Login"/>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="clear"></div>
+</div> <!-- header -->
+
+<div class="main-menu navbar navbar-inner">
+  <ul class="nav">
+    <li><%= link_to "Home", root_path %></li>
+    <li><%= link_to "About", about_path %></li>
+    <li><%= link_to "Books", books_path %></li>
+    <li><%= link_to "Add Book", new_book_path %></li>
+    <% unless current_user %>
+      <li><%= link_to "Register", register_path %></li>
+    <% end %>
+  </ul>
+</div> <!-- main-menu -->
+
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>">
+    <%= value %>
+  </div>
+<% end %>
